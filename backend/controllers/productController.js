@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import Product from "../models/productModel.js";
+const mongoose = require("mongoose");
+const Product = require("../models/productModel");
 
 const getAllProducts = async (req, res) => {
   try {
@@ -145,4 +145,10 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-export { getAllProducts, addProduct, getProduct, updateProduct, deleteProduct };
+module.exports = {
+  getAllProducts,
+  getProduct,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+};
