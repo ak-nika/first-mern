@@ -9,7 +9,7 @@ const HomePage = () => {
   useEffect(() => {
     getProducts();
   }, [getProducts]);
-  console.log(products);
+
   return (
     <section className="max-w-[1140px] mx-auto py-12 flex flex-col gap-4">
       <h1 className="bg-gradient-to-r from-cyan-400 to-blue-500 inline-block text-transparent bg-clip-text text-2xl md:text-3xl font-bold text-center">
