@@ -4,6 +4,8 @@ import CreatePage from "./pages/CreatePage";
 import Navbar from "./components/Navbar";
 
 function App() {
+  localStorage.setItem("theme", "dark");
+
   return (
     <div className="min-h-screen dark:bg-slate-800 bg-gray-100 dark:text-white text-gray-900">
       <Navbar />
