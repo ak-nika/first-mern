@@ -3,6 +3,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { useProductStore } from "../store/product";
 import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ _id, name, price, image }) => {
   const { deleteProduct } = useProductStore();
@@ -59,9 +60,11 @@ const ProductCard = ({ _id, name, price, image }) => {
         <h3 className="mb-2 text-xl font-bold">{name}</h3>
         <p className="text-lg font-bold mb-4">${price}</p>
 
-        <button className="p-2 dark:bg-cyan-500 bg-cyan-300 text-xl rounded-md cursor-pointer">
-          <FiEdit />
-        </button>
+        <Link to={`/edit/${_id}`}>
+          <button className="p-2 dark:bg-cyan-500 bg-cyan-300 text-xl rounded-md cursor-pointer">
+            <FiEdit />
+          </button>
+        </Link>
         <button
           className="p-2 dark:bg-red-500 bg-red-300 hover:bg-red-500 dark:hover:bg-red-700 text-xl rounded-md ml-2 cursor-pointer"
           onClick={handleDelete}
