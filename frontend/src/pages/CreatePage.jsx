@@ -1,11 +1,56 @@
 import { useState } from "react";
+import { useProductStore } from "../store/product";
+import { ToastContainer, toast } from "react-toastify";
 
 const CreatePage = () => {
   const [product, setProduct] = useState({ name: "", price: "", image: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const { createProduct } = useProductStore();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(product);
+    setIsLoading(true);
+    try {
+      const res = await createProduct(product);
+      if (res.status === "Failed") {
+        return toast.error(res.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: localStorage.getItem("theme"),
+        });
+      }
+
+      toast.success(res.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: localStorage.getItem("theme"),
+      });
+
+      setProduct({ name: "", price: "", image: "" });
+    } catch (error) {
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: localStorage.getItem("theme") === "dark" ? "dark" : "light",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <section className="max-w-[1140px] px-4 mx-auto">
@@ -44,10 +89,12 @@ const CreatePage = () => {
             type="submit"
             className="cursor-pointer dark:bg-blue-600 bg-cyan-300 dark:text-white text-gray-900 dark:hover:bg-blue-800 hover:bg-cyan-400 py-2 rounded-md font-[500]"
           >
-            Add Product
+            {isLoading ? "Adding..." : "Add Product"}
           </button>
         </form>
       </div>
+
+      <ToastContainer />
     </section>
   );
 };
